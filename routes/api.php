@@ -13,9 +13,9 @@ use Illuminate\Http\Request;
 |
 */
 
-Route::middleware('auth:api')->get('/user', function (Request $request) {
-    return $request->user();
-});
+// Route::middleware('auth:api')->get('/user', function (Request $request) {
+//     return $request->user();
+// });
 
 Route::group([
 
@@ -33,5 +33,7 @@ Route::group([
 });
 
 Route::group(['middleware' => ['jwt','api']], function($router) {
-    Route::resource('todo', 'TodoController');
+    Route::resource('todo', 'TodoController')->except(['update', 'destroy']);
   });
+  Route::middleware(['authorization', 'jwt', 'api' ])->put('/todo/{id}', 'TodoController@update');
+  Route::middleware(['authorization', 'jwt', 'api' ])->delete('/todo/{id}', 'TodoController@destroy');

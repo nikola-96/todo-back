@@ -81,6 +81,8 @@ class TodoController extends Controller
     {
         Todo::where('id', $id)->update($request->all());
 
+        return response()->json('true', 201);
+
     }
 
     /**
@@ -93,6 +95,8 @@ class TodoController extends Controller
     {
         $todo = Todo::findOrFail($id);
         $todo->delete();
+
+        return response()->json('true');
 
     }
 }
