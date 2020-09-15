@@ -42,9 +42,8 @@ class TodoController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function store(TodoRequest $request)
-    {   
+    {
         $todo = Todo::create(array_merge($request->all(),['user_id' => auth()->user()->id]));
-
         return response()->json('true', 201);
     }
 
@@ -56,7 +55,7 @@ class TodoController extends Controller
      */
     public function show($id)
     {
-        //
+        return Todo::findOrFail($id);
     }
 
     /**

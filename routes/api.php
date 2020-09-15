@@ -37,3 +37,4 @@ Route::group(['middleware' => ['jwt','api']], function($router) {
   });
   Route::middleware(['authorization', 'jwt', 'api' ])->put('/todo/{id}', 'TodoController@update');
   Route::middleware(['authorization', 'jwt', 'api' ])->delete('/todo/{id}', 'TodoController@destroy');
+  Route::middleware('jwt')->post('/todo', 'TodoController@store');
