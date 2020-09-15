@@ -20,9 +20,20 @@ class TodoController extends Controller
     public function index()
     {
         $user = JWTAuth::user();
-        $todos = Todo::where('user_id', $user->id)->get();
+        $priority = request()->input('priority');
 
-        return $todos;
+        if($priority){
+            $todos = Todo::where([
+                ['user_id', '=', $user->id],
+                ['priority', '=', $priority],])->get();
+
+                return $todos;
+            }else{
+                $todos = Todo::where('user_id', $user->id)->get();
+
+                return $todos;
+            }
+
     }
 
     /**
